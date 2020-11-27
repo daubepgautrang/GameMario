@@ -2,112 +2,124 @@
 #include "GameGlobal.h"
 #include "Game.h"
 #include "Brick.h"
-Tilemap::Tilemap(int ID, LPCWSTR filePath_texture, LPCWSTR filePath_data, int num_row_on_texture, int num_col_on_textture, int num_row_on_tilemap, int num_col_on_tilemap, int tileset_width, int tileset_height)
+#include "Layer.h"
+#include <memory>
+#include "OneWayPlatform.h"
+
+CTilemap::CTilemap(string path, string name)
 {
-	id = ID;
+	string fullpath = path + name;
+	TiXmlDocument doc(fullpath.c_str());
 
-	this->filePath_texture = filePath_texture;
-	this->filePath_data = filePath_data;
-
-	this->num_row_on_texture = num_row_on_texture;
-	this->num_col_on_textture = num_col_on_textture;
-	this->num_row_on_tilemap = num_row_on_tilemap;
-	this->num_col_on_tilemap = num_col_on_tilemap;
-	this->tileset_width = tileset_width;
-	this->tileset_height = tileset_height;
-
-	LoadMap();
-	Load();
-}
-
-
-void Tilemap::LoadMap()
-{
-	CTextureDatabase* texture = CTextureDatabase::GetInstance();
-
-	texture->Add(id, filePath_texture, D3DCOLOR_XRGB(255, 0, 255));
-
-	LPDIRECT3DTEXTURE9 texTileMap = texture->Get(id);
-
-
-	int id_sprite = 0;
-	for (UINT i = 0; i < num_row_on_texture; i++)
+	if (!doc.LoadFile()) 
 	{
-		for (UINT j = 0; j < num_col_on_textture; j++)
-		{
-			int id_SPRITE = id + id_sprite;
-			sprites->Add(id_SPRITE, tileset_width * j, tileset_height * i, tileset_width * (j + 1), tileset_height * (i + 1), texTileMap);
-			id_sprite = id_sprite + 1;
-		}
-	}
-	DebugOut(L"[INFO] Load map complete \n");
-}
-
-void Tilemap::Load()
-{
-	DebugOut(L"[INFO] Start loading map resources from : %s \n", filePath_data);
-
-	ifstream fs(filePath_data, ios::in);
-
-	if (fs.fail())
-	{
-		DebugOut(L"[ERROR] TileMap::Load_MapData failed: ID=%d", id);
-		fs.close();
 		return;
 	}
 
-	string line;
+	TiXmlElement* root = doc.RootElement();
+	//Tilemap* CTilemap = new Tilemap();
 
-	while (!fs.eof())
+	root->QueryIntAttribute("width", &width);
+	root->QueryIntAttribute("height", &height);
+	root->QueryIntAttribute("tilewidth", &tilewidth);
+	root->QueryIntAttribute("tileheight", &tileheight);
+
+	TiXmlElement* tileset = root->FirstChildElement("tileset");
+	tileset->QueryIntAttribute("columns", &columns);
+
+	string imgPath = tileset->FirstChildElement("image")->Attribute("source");
+
+	this->tilesetTextureId = path + imgPath;
+	CTextureDatabase::GetInstance()->Add(tilesetTextureId, ToLPCWSTR(tilesetTextureId), D3DCOLOR_ARGB(0, 0, 0, 0));
+
+	TiXmlElement* layerInfo = root->FirstChildElement("layer");
+	for (TiXmlElement* layerInfo = root->FirstChildElement("layer"); layerInfo != NULL; layerInfo = layerInfo->NextSiblingElement("layer"))
 	{
-		getline(fs, line);
-		// Lưu sprite tile vào vector tilemap
-		vector<LPSPRITE> spriteline;
-		stringstream ss(line);
-		int n;
-
-		while (ss >> n)
-		{
-			int idTile = id + n;
-			spriteline.push_back(sprites->Get(idTile));
-		}
-
-		tilemap.push_back(spriteline);
+		Layer layer = make_shared<CLayer>(layerInfo);
+		this->AddLayer(layer);
 	}
-
-	fs.close();
-
-	DebugOut(L"[INFO] Done loading map resources %s\n", filePath_data);
-}
-
-
-void Tilemap::Draw()
-{
-	int firstcol = (int)CGame::GetInstance()->GetCamPosX() / tileset_width;
-	int lastcol = firstcol + (SCREEN_WIDTH / tileset_width);
-	/*lastcol = lastcol > 175 ? 175 : lastcol;*/
-
-
-	for (UINT i = 0; i < num_row_on_tilemap; i++)
+	for (TiXmlElement* objectgroupInfo = root->FirstChildElement("objectgroup"); objectgroupInfo != NULL; objectgroupInfo = objectgroupInfo->NextSiblingElement("objectgroup"))
 	{
-		for (UINT j = firstcol; j <= lastcol; j++)
+		string name1 = objectgroupInfo->Attribute("name");
+		if (name1 == "Object Layer")
+			continue;
+		for (TiXmlElement* objectInfo = objectgroupInfo->FirstChildElement("object"); objectInfo != NULL; objectInfo = objectInfo->NextSiblingElement("object"))
 		{
-			float x = tileset_width * (j - firstcol) + CGame::GetInstance()->GetCamPosX() - (int)(CGame::GetInstance()->GetCamPosX()) % tileset_width;
-			float y = tileset_height * i - 184;
+			CGameObject* obj = NULL;
+			std::string name = objectInfo->Attribute("name");
+			if (name == "SolidBlock")
+			{
+				obj = new CBrick();
+			}
+			if (name == "GhostBlock")
+			{
+				obj = new OneWayPlatform();
+			}
 
-			tilemap[i][j]->Draw(1, x, y);
+			float x =0, y = 0;
+			float width=0, height=0;
+			objectInfo->QueryFloatAttribute("x", &x);
+			objectInfo->QueryFloatAttribute("y", &y);
+			objectInfo->QueryFloatAttribute("width", &width);
+			objectInfo->QueryFloatAttribute("height", &height);
+
+			obj->SetPosition(x, y);
+			obj->SetWidthHeight(width, height);
+			CGame::GetInstance()->GetCurrentScene()->AddObject(obj);
+
+			DebugOut(L"[INFO] %f \t %f \n", x, y);
 		}
 	}
 }
 
-int Tilemap::GetWidthTileMap()
+void CTilemap::Render()
 {
+	int col = CGame::GetInstance()->GetCamX() / tilewidth;
+	int row = CGame::GetInstance()->GetCamY() / tileheight;
 
-	return num_col_on_tilemap * tileset_width;
+	if (col > 0)
+		col--;
+	if (row > 0)
+		row--;
 
+	Vec2 camSize = Vec2(CGame::GetInstance()->GetCamWidth() / tilewidth, CGame::GetInstance()->GetCamHeight() / tileheight);
+
+	for (int i = col; i < camSize.x + col + 2; i++)
+	{
+		for (int j = row; j < camSize.y + row + 2; j++)
+		{
+			int x = i * tilewidth /*- CGame::GetInstance()->GetCamX();*/;
+			int y = j * tileheight /*- CGame::GetInstance()->GetCamY();*/;
+
+			for (shared_ptr<CLayer> layer : layers)
+			{
+				if (layer->Hidden) continue;
+				int id = layer->GetTileID(i % width, j % height);
+				this->Draw(id, x, y);
+			}
+		}
+	}
 }
 
-Tilemap::~Tilemap()
+void CTilemap::Draw(int gid, float x, float y)
+{
+	if (gid < firstgid) return;
+	RECT r;
+	r.top = ((gid - firstgid) / columns) * tileheight;
+	r.left = ((gid - firstgid) % columns) * tilewidth;
+	r.bottom = r.top + tileheight;
+	r.right = r.left + tilewidth;
+	
+	CGame::GetInstance()->Draw(1, x, y, CTextureDatabase::GetInstance()->Get(tilesetTextureId), r.left, r.top, r.right, r.bottom);
+}
+
+void CTilemap::AddLayer(Layer layer)
+{
+	this->layers.push_back(layer);
+}
+
+
+CTilemap::~CTilemap()
 {
 }
 

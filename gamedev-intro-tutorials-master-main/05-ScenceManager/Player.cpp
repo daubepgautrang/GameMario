@@ -159,7 +159,7 @@ void Player::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 			else if (dynamic_cast<CPortal*>(e->obj))
 			{
 				CPortal* p = dynamic_cast<CPortal*>(e->obj);
-				CGame::GetInstance()->SwitchScene(p->GetSceneId());
+				//CGame::GetInstance()->SwitchScene(p->GetSceneId());
 			}
 		
 		}

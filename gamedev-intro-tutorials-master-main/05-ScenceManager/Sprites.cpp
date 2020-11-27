@@ -2,7 +2,7 @@
 #include "Game.h"
 #include "Utils.h"
 
-CSprite::CSprite(int id, int left, int top, int right, int bottom, LPDIRECT3DTEXTURE9 tex)
+CSprite::CSprite(string id, int left, int top, int right, int bottom, LPDIRECT3DTEXTURE9 tex)
 {
 	this->id = id;
 	this->left = left;
@@ -26,7 +26,7 @@ void CSprite::Draw(int direction,float x, float y, int alpha)
    	game->Draw(direction, x, y, texture, left, top, right, bottom, alpha);
 }
 
-void CSpriteDatabase::Add(int id, int left, int top, int right, int bottom, LPDIRECT3DTEXTURE9 tex)
+void CSpriteDatabase::Add(string id, int left, int top, int right, int bottom, LPDIRECT3DTEXTURE9 tex)
 {
 	LPSPRITE s = new CSprite(id, left, top, right, bottom, tex);
 	sprites[id] = s;
@@ -34,7 +34,7 @@ void CSpriteDatabase::Add(int id, int left, int top, int right, int bottom, LPDI
 	DebugOut(L"[INFO] sprite added: %d, %d, %d, %d, %d \n", id, left, top, right, bottom);
 }
 
-LPSPRITE CSpriteDatabase::Get(int id)
+LPSPRITE CSpriteDatabase::Get(string id)
 {
 	return sprites[id];
 }

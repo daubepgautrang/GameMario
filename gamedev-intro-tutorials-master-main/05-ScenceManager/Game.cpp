@@ -4,7 +4,10 @@
 #include "Game.h"
 #include "Utils.h"
 
+#include "Scence.h"
+
 #include "PlayScence.h"
+#include "TinyXML/tinyxml.h"
 
 CGame * CGame::__instance = NULL;
 
@@ -38,6 +41,8 @@ void CGame::Init(HWND hWnd)
 	screen_height = r.bottom + 1;
 	screen_width = r.right + 1;
 
+	//camera->SetCameraSize(screen_width, screen_height);
+
 	d3d->CreateDevice(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, hWnd, D3DCREATE_SOFTWARE_VERTEXPROCESSING, &d3dpp, &d3ddv);
 
 	if (d3ddv == NULL)
@@ -67,7 +72,7 @@ void CGame::Draw(int direction, float x, float y, LPDIRECT3DTEXTURE9 texture, in
 	r.bottom = bottom;
 	spriteHandler->Draw(texture, &r, NULL, &p, D3DCOLOR_ARGB(alpha, 255, 255, 255));*/
 
-	D3DXVECTOR3 p(x - cam_x, y - cam_y, 0);
+	D3DXVECTOR3 p(x - camera->GetCameraPosition().x, y - camera->GetCameraPosition().y, 0);
 	RECT r;
 	r.left = left;
 	r.top = top;
@@ -322,6 +327,11 @@ void CGame::SweptAABB(
 
 }
 
+void CGame::setCam(Camera* camera)
+{
+	this->camera = camera;
+}
+
 CGame *CGame::GetInstance()
 {
 	if (__instance == NULL) __instance = new CGame();
@@ -335,80 +345,92 @@ CGame *CGame::GetInstance()
 #define GAME_FILE_SECTION_SETTINGS 1
 #define GAME_FILE_SECTION_SCENES 2
 
-void CGame::_ParseSection_SETTINGS(string line)
-{
-	vector<string> tokens = split(line);
-
-	if (tokens.size() < 2) return;
-	if (tokens[0] == "start")
-		current_scene = atoi(tokens[1].c_str());
-	else
-		DebugOut(L"[ERROR] Unknown game setting %s\n", ToWSTR(tokens[0]).c_str());
-}
-
-void CGame::_ParseSection_SCENES(string line)
-{
-	vector<string> tokens = split(line);
-
-	if (tokens.size() < 2) return;
-	int id = atoi(tokens[0].c_str());
-	LPCWSTR path = ToLPCWSTR(tokens[1]);
-
-	LPSCENE scene = new CPlayScene(id, path);
-	scenes[id] = scene;
-}
-
 /*
 	Load game campaign file and load/initiate first scene
 */
-void CGame::Load(LPCWSTR gameFile)
+void CGame::Load(string gameFile)
 {
-	DebugOut(L"[INFO] Start loading game file : %s\n", gameFile);
+	TiXmlDocument doc(gameFile.c_str());
+	if (!doc.LoadFile()) {
+		return;
+	}
 
-	ifstream f;
-	f.open(gameFile);
-	char str[MAX_GAME_LINE];
+	TiXmlElement* root = doc.RootElement();
+	TiXmlElement* resources = root->FirstChildElement("Resources");
 
-	// current resource section flag
-	int section = GAME_FILE_SECTION_UNKNOWN;
-
-	while (f.getline(str, MAX_GAME_LINE))
+	for (TiXmlElement* node = resources->FirstChildElement("Resource"); node!=nullptr; node = node->NextSiblingElement("Resource"))
 	{
-		string line(str);
+		string texttureId = node->Attribute("textureId");
+		string textturesPath = node->FirstChildElement("Texture")->Attribute("path");
+		string spritePath = node->FirstChildElement("SpriteDB")->Attribute("path");
+		string AnimationPath = node->FirstChildElement("AnimationDB")->Attribute("path");
+		string transColor;
 
-		if (line[0] == '#') continue;	// skip comment lines	
-
-		if (line == "[SETTINGS]") { section = GAME_FILE_SECTION_SETTINGS; continue; }
-		if (line == "[SCENES]") { section = GAME_FILE_SECTION_SCENES; continue; }
-
-		//
-		// data section
-		//
-		switch (section)
+		if (!node->FirstChildElement("Texture")->Attribute("transparent"))
 		{
-			case GAME_FILE_SECTION_SETTINGS: _ParseSection_SETTINGS(line); break;
-			case GAME_FILE_SECTION_SCENES: _ParseSection_SCENES(line); break;
+			transColor = "0,255,255,255";
+		}
+		else
+		{
+			transColor = node->FirstChildElement("Texture")->Attribute("transparent");
+		}
+		vector<string> argb = split(transColor, ",");
+		
+		/*TextureManager::GetInstance()->Add(textureId, ToLPCWSTR(texturesPath), D3DCOLOR_ARGB(stoi(argb[0]), stoi(argb[1]), stoi(argb[2]), stoi(argb[3])));
+		SpriteManager::GetInstance()->ImportFromXml(textureId, spritesPath.c_str());
+		AnimationManager::GetInstance()->ImportFromXml(textureId, animationsPath.c_str());*/
+	}
+	TiXmlElement* scenes = root->FirstChildElement("GameContent")->FirstChildElement("Scenes");
+	for (TiXmlElement* node = scenes->FirstChildElement("Scene"); node != nullptr; node = node->NextSiblingElement("Scene"))
+	{
+		string id = node->Attribute("id");
+		string type = node->Attribute("type");
+
+		if (type == "PlayScene")
+		{
+			this->current_scene = id;
+			CPlayScene* scene = new CPlayScene(id);
+			this->scenes[id] = scene;
+			scene->Load(node);
 		}
 	}
-	f.close();
 
-	DebugOut(L"[INFO] Loading game file : %s has been loaded successfully\n",gameFile);
-
-	SwitchScene(current_scene);
+	string startId = scenes->Attribute("start");
+	SwitchScene(startId);
 }
 
-void CGame::SwitchScene(int scene_id)
+void CGame::SwitchScene(string scene_id)
 {
 	DebugOut(L"[INFO] Switching to scene %d\n", scene_id);
 
-	scenes[current_scene]->Unload();
+	//scenes[current_scene]->Unload();
 
-	CTextureDatabase::GetInstance()->Clear();
-	CSpriteDatabase::GetInstance()->Clear();
-	CAnimations::GetInstance()->Clear();
+	//CTextureDatabase::GetInstance()->Clear();
+	//CSpriteDatabase::GetInstance()->Clear();
+	//CAnimations::GetInstance()->Clear();
 
 	current_scene = scene_id;
 	LPSCENE s = scenes[scene_id];
 	//CGame::GetInstance()->SetKeyHandler(s->GetKeyEventHandler());
-	s->Load();	
+	//s->Load();	
+}
+
+float CGame::GetCamX()
+{
+	return camera->GetCameraPosition().x;
+}
+
+float CGame::GetCamY()
+{
+	return camera->GetCameraPosition().y;
+}
+
+float CGame::GetCamWidth()
+{
+	return camera->GetCameraSize().x;
+}
+
+float CGame::GetCamHeight()
+{
+	return camera->GetCameraSize().y;
 }

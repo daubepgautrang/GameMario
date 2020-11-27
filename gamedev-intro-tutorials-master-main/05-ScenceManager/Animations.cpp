@@ -3,11 +3,10 @@
 
 CAnimationSetDatabase * CAnimationSetDatabase::__instance = NULL;
 
-void CAnimation::Add(int spriteId, DWORD time)
+void CAnimation::Add(string spriteId, DWORD time)
 {
 	int t = time;
 	if (time == 0) t = this->defaultTime;
-
 	LPSPRITE sprite = CSpriteDatabase::GetInstance()->Get(spriteId);
 
 	if (sprite == NULL)
@@ -50,12 +49,12 @@ CAnimations * CAnimations::GetInstance()
 	return __instance;
 }
 
-void CAnimations::Add(int id, LPANIMATION ani)
+void CAnimations::Add(string id, LPANIMATION ani)
 {
 	animations[id] = ani;
 }
 
-LPANIMATION CAnimations::Get(int id)
+LPANIMATION CAnimations::Get(string id)
 {
 	LPANIMATION ani = animations[id];
 	if (ani == NULL)
@@ -85,7 +84,7 @@ CAnimationSetDatabase *CAnimationSetDatabase::GetInstance()
 	return __instance;
 }
 
-LPANIMATION_SET CAnimationSetDatabase::Get(unsigned int id)
+LPANIMATION_SET CAnimationSetDatabase::Get(string id)
 {
 	LPANIMATION_SET ani_set = animation_sets[id];
 	if (ani_set == NULL)
@@ -94,7 +93,7 @@ LPANIMATION_SET CAnimationSetDatabase::Get(unsigned int id)
 	return ani_set;
 }
 
-void CAnimationSetDatabase::Add(int id, LPANIMATION_SET ani_set)
+void CAnimationSetDatabase::Add(string id, LPANIMATION_SET ani_set)
 {
 	animation_sets[id] = ani_set;
 }

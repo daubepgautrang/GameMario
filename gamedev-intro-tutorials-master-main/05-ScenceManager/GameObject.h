@@ -44,7 +44,8 @@ struct CCollisionEvent
 class CGameObject
 {
 public:
-
+	float width;
+	float height;
 	float x; 
 	float y;
 
@@ -67,6 +68,8 @@ public:
 	void SetSpeed(float vx, float vy) { this->vx = vx, this->vy = vy; }
 	void GetPosition(float &x, float &y) { x = this->x; y = this->y; }
 	void GetSpeed(float &vx, float &vy) { vx = this->vx; vy = this->vy; }
+	void GetWidthHeight(float& width, float& height) { width = this->width; height = this->height; }
+	void SetWidthHeight(float width, float height) { width = this->width; height = this->height; }
 
 	int GetState() { return this->state; }
 

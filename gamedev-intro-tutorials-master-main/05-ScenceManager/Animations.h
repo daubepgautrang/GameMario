@@ -29,7 +29,7 @@ class CAnimation
 	vector<LPANIMATION_FRAME> frames;
 public:
 	CAnimation(int defaultTime = 100) { this->defaultTime = defaultTime; lastFrameTime = -1; currentFrame = -1; }
-	void Add(int spriteId, DWORD time = 0);
+	void Add(string spriteId, DWORD time = 0);
 	int GetCurrentFrame() { return currentFrame; }
 	void Render(int direction, float x, float y, int alpha = 255);
 };
@@ -40,11 +40,11 @@ class CAnimations
 {
 	static CAnimations * __instance;
 
-	unordered_map<int, LPANIMATION> animations;
+	unordered_map<string, LPANIMATION> animations;
 
 public:
-	void Add(int id, LPANIMATION ani);
-	LPANIMATION Get(int id);
+	void Add(string id, LPANIMATION ani);
+	LPANIMATION Get(string id);
 	void Clear();
 
 	static CAnimations * GetInstance();
@@ -61,12 +61,12 @@ class CAnimationSetDatabase
 {
 	static CAnimationSetDatabase * __instance;
 
-	unordered_map<int, LPANIMATION_SET> animation_sets;
+	unordered_map<string, LPANIMATION_SET> animation_sets;
 
 public:
 	CAnimationSetDatabase();
-	void Add(int id, LPANIMATION_SET ani);
-	LPANIMATION_SET Get(unsigned int id);
+	void Add(string id, LPANIMATION_SET ani);
+	LPANIMATION_SET Get(string id);
 
 
 	static CAnimationSetDatabase * GetInstance();

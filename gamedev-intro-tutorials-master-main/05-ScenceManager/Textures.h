@@ -11,12 +11,12 @@ class CTextureDatabase
 {
 	static CTextureDatabase * __instance;
 
-	unordered_map<int, LPDIRECT3DTEXTURE9> textures;
+	unordered_map<string, LPDIRECT3DTEXTURE9> textures;
 
 public: 
 	CTextureDatabase();
-	void Add(int id, LPCWSTR filePath, D3DCOLOR transparentColor);
-	LPDIRECT3DTEXTURE9 Get(unsigned int i);
+	void Add(string id, LPCWSTR filePath, D3DCOLOR transparentColor);
+	LPDIRECT3DTEXTURE9 Get(string i);
 
 	void Clear();
 	static CTextureDatabase * GetInstance();

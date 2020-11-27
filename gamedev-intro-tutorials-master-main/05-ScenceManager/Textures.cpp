@@ -20,7 +20,7 @@ CTextureDatabase *CTextureDatabase::GetInstance()
 	return __instance;
 }
 
-void CTextureDatabase::Add(int id, LPCWSTR filePath, D3DCOLOR transparentColor)
+void CTextureDatabase::Add(string id, LPCWSTR filePath, D3DCOLOR transparentColor)
 {
 	D3DXIMAGE_INFO info;
 	HRESULT result = D3DXGetImageInfoFromFile(filePath, &info);
@@ -60,7 +60,7 @@ void CTextureDatabase::Add(int id, LPCWSTR filePath, D3DCOLOR transparentColor)
 	DebugOut(L"[INFO] Texture loaded Ok: id=%d, %s\n", id, filePath);
 }
 
-LPDIRECT3DTEXTURE9 CTextureDatabase::Get(unsigned int id) 
+LPDIRECT3DTEXTURE9 CTextureDatabase::Get(string id) 
 {
 	return textures[id];
 }

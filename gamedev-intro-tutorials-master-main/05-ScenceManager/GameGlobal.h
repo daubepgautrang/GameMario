@@ -9,8 +9,8 @@
 #include <WinUser.h>
 #include <unordered_map>
 
-#define SCREEN_WIDTH 280
-#define SCREEN_HEIGHT 260
+#define SCREEN_WIDTH 750
+#define SCREEN_HEIGHT 750
 //---------------PLAYER STATS-------------------
 #define Mario Player::GetInstance()
 

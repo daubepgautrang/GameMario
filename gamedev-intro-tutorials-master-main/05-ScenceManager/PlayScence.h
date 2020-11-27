@@ -1,4 +1,5 @@
 #pragma once
+#include "TinyXML/tinyxml.h"
 #include "Game.h"
 #include "Textures.h"
 #include "Scence.h"
@@ -9,13 +10,14 @@
 #include "Goomba.h"
 #include "Koopas.h"
 #include "Tilemap.h"
-
+#include "Camera.h"
 
 class CPlayScene: public CScene
 {
 protected: 
-	Tilemap* tilemap;
+	Tilemap tilemap;
 	Player *player;					// A play scene has to have player, right? 
+
 	/*Tilemap* tilemap;*/
 
 	vector<LPGAMEOBJECT> objects;
@@ -29,16 +31,16 @@ protected:
 
 	
 public: 
-	CPlayScene(int id, LPCWSTR filePath);
+	CPlayScene(string id);
 
-	virtual void Load();
+	virtual void Load(TiXmlElement* data);
 	virtual void Update(DWORD dt);
 	virtual void Render();
 	virtual void Unload();
 	virtual void KeyState(BYTE *states);
 	virtual void OnKeyDown(int KeyCode);
 	virtual void OnKeyUp(int KeyCode);
-
+	virtual void AddObject(LPGAMEOBJECT obj);
 	Player * GetPlayer() { return player; } 
 
 	friend class CPlayScenceKeyHandler;

@@ -7,7 +7,7 @@ using namespace std;
 
 class CSprite
 {
-	int id;				// Sprite ID in the sprite database
+	string id;				// Sprite ID in the sprite database
 
 	int left; 
 	int top;
@@ -16,7 +16,7 @@ class CSprite
 
 	LPDIRECT3DTEXTURE9 texture;
 public: 
-	CSprite(int id, int left, int top, int right, int bottom, LPDIRECT3DTEXTURE9 tex);
+	CSprite(string id, int left, int top, int right, int bottom, LPDIRECT3DTEXTURE9 tex);
 
 	void Draw(int direction, float x, float y, int alpha = 255);
 };
@@ -30,11 +30,11 @@ class CSpriteDatabase
 {
 	static CSpriteDatabase * __instance;
 
-	unordered_map<int, LPSPRITE> sprites;
+	unordered_map<string, LPSPRITE> sprites;
 
 public:
-	void Add(int id, int left, int top, int right, int bottom, LPDIRECT3DTEXTURE9 tex);
-	LPSPRITE Get(int id);
+	void Add(string id, int left, int top, int right, int bottom, LPDIRECT3DTEXTURE9 tex);
+	LPSPRITE Get(string id);
 	void CSpriteDatabase::Clear();
 
 	static CSpriteDatabase * GetInstance();

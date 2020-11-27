@@ -5,6 +5,7 @@
 #include <Windows.h>
 #include <d3d9.h>
 #include <d3dx9.h>
+#include "Utils.h"
 
 
 #define DIRECTINPUT_VERSION 0x0800
@@ -35,17 +36,19 @@ class CGame
 
 	LPKEYEVENTHANDLER keyHandler;
 
-	float cam_x = 0.0f;
-	float cam_y = 0.0f;
+	Camera* camera;
+
+	//float cam_x = 0.0f;
+	//float cam_y = 0.0f;
+
+	//float cam_width;
+	//float cam_height;
 
 	int screen_width;
 	int screen_height; 
 
-	unordered_map<int, LPSCENE> scenes;
-	int current_scene; 
-
-	void _ParseSection_SETTINGS(string line);
-	void _ParseSection_SCENES(string line);
+	unordered_map<string, LPSCENE> scenes;
+	string current_scene; 
 
 public:
 	void InitKeyboard();
@@ -56,9 +59,15 @@ public:
 	int IsKeyDown(int KeyCode);
 	void ProcessKeyboard();
 
-	void Load(LPCWSTR gameFile);
+	void Load(string gameFile);
 	LPSCENE GetCurrentScene() { return scenes[current_scene]; }
-	void SwitchScene(int scene_id);
+	void SwitchScene(string scene_id);
+
+	float GetCamX();
+	float GetCamY();
+
+	float GetCamWidth();
+	float GetCamHeight();
 
 	int GetScreenWidth() { return screen_width; }
 	int GetScreenHeight() { return screen_height; }
@@ -82,9 +91,10 @@ public:
 	LPDIRECT3DSURFACE9 GetBackBuffer() { return backBuffer; }
 	LPD3DXSPRITE GetSpriteHandler() { return this->spriteHandler; }
 
-	void SetCamPos(float x, float y) { cam_x = x; cam_y = y; }
-	float GetCamPosX() { return cam_x; }
-	float GetCamPosY() { return cam_y; }
+	void SetCamPos(float x, float y) { camera->SetCameraPosition(x, y); }
+	float GetCamPosX() { return camera->GetCameraPosition().x; }
+	float GetCamPosY() { return camera->GetCameraPosition().y; }
+	void setCam(Camera* camera);
 
 	static CGame * GetInstance();
 

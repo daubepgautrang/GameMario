@@ -130,6 +130,7 @@
     <ClCompile Include="GameGlobal.cpp" />
     <ClCompile Include="Ground.cpp" />
     <ClCompile Include="Koopas.cpp" />
+    <ClCompile Include="Layer.cpp" />
     <ClCompile Include="OneWayPlatform.cpp" />
     <ClCompile Include="PlayerAttackingState.cpp" />
     <ClCompile Include="PlayerFallingState.cpp" />
@@ -143,6 +144,10 @@
     <ClCompile Include="PlayerWalkingState.cpp" />
     <ClCompile Include="Portal.cpp" />
     <ClCompile Include="Tilemap.cpp" />
+    <ClCompile Include="TinyXML\tinystr.cpp" />
+    <ClCompile Include="TinyXML\tinyxml.cpp" />
+    <ClCompile Include="TinyXML\tinyxmlerror.cpp" />
+    <ClCompile Include="TinyXML\tinyxmlparser.cpp" />
     <ClCompile Include="Utils.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameObject.cpp" />
@@ -158,6 +163,7 @@
     <ClInclude Include="Camera.h" />
     <ClInclude Include="GameGlobal.h" />
     <ClInclude Include="Ground.h" />
+    <ClInclude Include="Layer.h" />
     <ClInclude Include="OneWayPlatform.h" />
     <ClInclude Include="PlayerAttackingState.h" />
     <ClInclude Include="PlayerFallingState.h" />
@@ -175,6 +181,8 @@
     <ClInclude Include="PlayerWalkingState.h" />
     <ClInclude Include="Portal.h" />
     <ClInclude Include="Tilemap.h" />
+    <ClInclude Include="TinyXML\tinystr.h" />
+    <ClInclude Include="TinyXML\tinyxml.h" />
     <ClInclude Include="Utils.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameObject.h" />

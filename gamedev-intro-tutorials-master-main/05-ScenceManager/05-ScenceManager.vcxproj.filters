@@ -20,6 +20,30 @@
     <Filter Include="Game Objects\Object">
       <UniqueIdentifier>{dea7c69d-3f33-4426-af5b-f549ae9bf09c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="TinyXML">
+      <UniqueIdentifier>{74b8e00d-7ee5-4467-a4af-0334a752dbc2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game Component\Camera">
+      <UniqueIdentifier>{a0bdeb01-26eb-4d52-b241-ebece5d505a0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game Component\Game">
+      <UniqueIdentifier>{31f59353-2d72-434b-9e1d-24c163e8a4c4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game Component\Scence">
+      <UniqueIdentifier>{5d7df1a3-478a-4bcb-bebe-b9311633ad0a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game Component\Layer">
+      <UniqueIdentifier>{56d8353f-584b-49cc-bf8e-202e03a7fd3e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game Component\Object">
+      <UniqueIdentifier>{2988dcff-47fc-4ade-afe2-6482d02b540d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game Component\Tilemap">
+      <UniqueIdentifier>{ae6818f0-9d94-4aea-a2c7-67adc9754462}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game Component\Utils">
+      <UniqueIdentifier>{ad889e97-b216-4ba7-babb-c13658fd6e6a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Animations.cpp">
@@ -27,12 +51,6 @@
     </ClCompile>
     <ClCompile Include="Brick.cpp">
       <Filter>Game Objects\Object</Filter>
-    </ClCompile>
-    <ClCompile Include="Game.cpp">
-      <Filter>Game Component</Filter>
-    </ClCompile>
-    <ClCompile Include="GameObject.cpp">
-      <Filter>Game Component</Filter>
     </ClCompile>
     <ClCompile Include="Goomba.cpp">
       <Filter>Game Objects\Enemy</Filter>
@@ -46,23 +64,14 @@
     <ClCompile Include="Player.cpp">
       <Filter>Game Objects\Player</Filter>
     </ClCompile>
-    <ClCompile Include="PlayScence.cpp">
-      <Filter>Game Component</Filter>
-    </ClCompile>
     <ClCompile Include="Portal.cpp">
       <Filter>Game Objects\Object</Filter>
-    </ClCompile>
-    <ClCompile Include="Scence.cpp">
-      <Filter>Game Component</Filter>
     </ClCompile>
     <ClCompile Include="Sprites.cpp">
       <Filter>Game Graphics</Filter>
     </ClCompile>
     <ClCompile Include="Textures.cpp">
       <Filter>Game Graphics</Filter>
-    </ClCompile>
-    <ClCompile Include="Utils.cpp">
-      <Filter>Game Component</Filter>
     </ClCompile>
     <ClCompile Include="PlayerIdleState.cpp">
       <Filter>Game Objects\Player</Filter>
@@ -73,20 +82,11 @@
     <ClCompile Include="PlayerJumpingState.cpp">
       <Filter>Game Objects\Player</Filter>
     </ClCompile>
-    <ClCompile Include="GameGlobal.cpp">
-      <Filter>Game Component</Filter>
-    </ClCompile>
     <ClCompile Include="PlayerWalkingState.cpp">
       <Filter>Game Objects\Player</Filter>
     </ClCompile>
     <ClCompile Include="PlayerCrouchingState.cpp">
       <Filter>Game Objects\Player</Filter>
-    </ClCompile>
-    <ClCompile Include="Tilemap.cpp">
-      <Filter>Game Component</Filter>
-    </ClCompile>
-    <ClCompile Include="Camera.cpp">
-      <Filter>Game Component</Filter>
     </ClCompile>
     <ClCompile Include="Ground.cpp">
       <Filter>Game Objects\Object</Filter>
@@ -109,22 +109,52 @@
     <ClCompile Include="PlayerSkiddingState.cpp">
       <Filter>Game Objects\Player</Filter>
     </ClCompile>
+    <ClCompile Include="TinyXML\tinystr.cpp">
+      <Filter>TinyXML</Filter>
+    </ClCompile>
+    <ClCompile Include="TinyXML\tinyxml.cpp">
+      <Filter>TinyXML</Filter>
+    </ClCompile>
+    <ClCompile Include="TinyXML\tinyxmlerror.cpp">
+      <Filter>TinyXML</Filter>
+    </ClCompile>
+    <ClCompile Include="TinyXML\tinyxmlparser.cpp">
+      <Filter>TinyXML</Filter>
+    </ClCompile>
+    <ClCompile Include="Camera.cpp">
+      <Filter>Game Component\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="GameGlobal.cpp">
+      <Filter>Game Component\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Game.cpp">
+      <Filter>Game Component\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayScence.cpp">
+      <Filter>Game Component\Scence</Filter>
+    </ClCompile>
+    <ClCompile Include="Scence.cpp">
+      <Filter>Game Component\Scence</Filter>
+    </ClCompile>
+    <ClCompile Include="Layer.cpp">
+      <Filter>Game Component\Layer</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject.cpp">
+      <Filter>Game Component\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Tilemap.cpp">
+      <Filter>Game Component\Tilemap</Filter>
+    </ClCompile>
+    <ClCompile Include="Utils.cpp">
+      <Filter>Game Component\Utils</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Utils.h">
-      <Filter>Game Component</Filter>
-    </ClInclude>
     <ClInclude Include="Animations.h">
       <Filter>Game Graphics</Filter>
     </ClInclude>
     <ClInclude Include="Brick.h">
       <Filter>Game Objects\Object</Filter>
-    </ClInclude>
-    <ClInclude Include="Game.h">
-      <Filter>Game Component</Filter>
-    </ClInclude>
-    <ClInclude Include="GameObject.h">
-      <Filter>Game Component</Filter>
     </ClInclude>
     <ClInclude Include="Goomba.h">
       <Filter>Game Objects\Enemy</Filter>
@@ -141,14 +171,8 @@
     <ClInclude Include="PlayerState.h">
       <Filter>Game Objects\Player</Filter>
     </ClInclude>
-    <ClInclude Include="PlayScence.h">
-      <Filter>Game Component</Filter>
-    </ClInclude>
     <ClInclude Include="Portal.h">
       <Filter>Game Objects\Object</Filter>
-    </ClInclude>
-    <ClInclude Include="Scence.h">
-      <Filter>Game Component</Filter>
     </ClInclude>
     <ClInclude Include="Sprites.h">
       <Filter>Game Graphics</Filter>
@@ -165,20 +189,11 @@
     <ClInclude Include="PlayerJumpingState.h">
       <Filter>Game Objects\Player</Filter>
     </ClInclude>
-    <ClInclude Include="GameGlobal.h">
-      <Filter>Game Component</Filter>
-    </ClInclude>
     <ClInclude Include="PlayerWalkingState.h">
       <Filter>Game Objects\Player</Filter>
     </ClInclude>
     <ClInclude Include="PlayerCrouchingState.h">
       <Filter>Game Objects\Player</Filter>
-    </ClInclude>
-    <ClInclude Include="Tilemap.h">
-      <Filter>Game Component</Filter>
-    </ClInclude>
-    <ClInclude Include="Camera.h">
-      <Filter>Game Component</Filter>
     </ClInclude>
     <ClInclude Include="Ground.h">
       <Filter>Game Objects\Object</Filter>
@@ -200,6 +215,39 @@
     </ClInclude>
     <ClInclude Include="PlayerSkiddingState.h">
       <Filter>Game Objects\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="TinyXML\tinystr.h">
+      <Filter>TinyXML</Filter>
+    </ClInclude>
+    <ClInclude Include="TinyXML\tinyxml.h">
+      <Filter>TinyXML</Filter>
+    </ClInclude>
+    <ClInclude Include="Camera.h">
+      <Filter>Game Component\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="GameGlobal.h">
+      <Filter>Game Component\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Game.h">
+      <Filter>Game Component\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayScence.h">
+      <Filter>Game Component\Scence</Filter>
+    </ClInclude>
+    <ClInclude Include="Scence.h">
+      <Filter>Game Component\Scence</Filter>
+    </ClInclude>
+    <ClInclude Include="Layer.h">
+      <Filter>Game Component\Layer</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject.h">
+      <Filter>Game Component\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Tilemap.h">
+      <Filter>Game Component\Tilemap</Filter>
+    </ClInclude>
+    <ClInclude Include="Utils.h">
+      <Filter>Game Component\Utils</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
