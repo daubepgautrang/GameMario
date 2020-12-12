@@ -18,5 +18,6 @@ public:
 	virtual void SetCameraSize(float w, float h);
 	virtual Vec2 GetCameraPosition();
 	virtual void SetCameraPosition(float x, float y);
+	virtual Vec2 ToGetPosition(float x, float y);
 	void Update(DWORD dt);
 };

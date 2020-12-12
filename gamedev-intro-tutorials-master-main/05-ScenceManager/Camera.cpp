@@ -36,6 +36,11 @@ void Camera::SetCameraPosition(float x, float y)
 	this->position.y = y;
 }
 
+Vec2 Camera::ToGetPosition(float x, float y)
+{
+	return Vec2(x - this->position.x, y - this->position.y);
+}
+
 void Camera::Update(DWORD dt)
 {
 	if (this->position.x < this->boundaryleft)

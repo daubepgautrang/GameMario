@@ -8,6 +8,10 @@
 
 #include "PlayScence.h"
 #include "TinyXML/tinyxml.h"
+#include "Textures.h"
+#include "Animations.h"
+#include "Sprites.h"
+
 
 CGame * CGame::__instance = NULL;
 
@@ -360,9 +364,9 @@ void CGame::Load(string gameFile)
 
 	for (TiXmlElement* node = resources->FirstChildElement("Resource"); node!=nullptr; node = node->NextSiblingElement("Resource"))
 	{
-		string texttureId = node->Attribute("textureId");
-		string textturesPath = node->FirstChildElement("Texture")->Attribute("path");
-		string spritePath = node->FirstChildElement("SpriteDB")->Attribute("path");
+		string textureId = node->Attribute("textureId");
+		string texturesPath = node->FirstChildElement("Texture")->Attribute("path");
+		string SpritePath = node->FirstChildElement("SpriteDB")->Attribute("path");
 		string AnimationPath = node->FirstChildElement("AnimationDB")->Attribute("path");
 		string transColor;
 
@@ -376,9 +380,9 @@ void CGame::Load(string gameFile)
 		}
 		vector<string> argb = split(transColor, ",");
 		
-		/*TextureManager::GetInstance()->Add(textureId, ToLPCWSTR(texturesPath), D3DCOLOR_ARGB(stoi(argb[0]), stoi(argb[1]), stoi(argb[2]), stoi(argb[3])));
-		SpriteManager::GetInstance()->ImportFromXml(textureId, spritesPath.c_str());
-		AnimationManager::GetInstance()->ImportFromXml(textureId, animationsPath.c_str());*/
+		CTextureDatabase::GetInstance()->Add(textureId, ToLPCWSTR(texturesPath), D3DCOLOR_ARGB(stoi(argb[0]), stoi(argb[1]), stoi(argb[2]), stoi(argb[3])));
+		CSpriteDatabase::GetInstance()->ImportSpriteFromXml(textureId, SpritePath.c_str());
+		CAnimations::GetInstance()->ImportAnimationFromXml(AnimationPath.c_str());
 	}
 	TiXmlElement* scenes = root->FirstChildElement("GameContent")->FirstChildElement("Scenes");
 	for (TiXmlElement* node = scenes->FirstChildElement("Scene"); node != nullptr; node = node->NextSiblingElement("Scene"))

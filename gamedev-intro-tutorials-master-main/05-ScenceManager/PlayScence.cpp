@@ -7,6 +7,8 @@
 #include "Sprites.h"
 #include "Portal.h"
 #include "GameGlobal.h"
+#include "StatePlayer.h"
+
 
 using namespace std;
 
@@ -236,7 +238,7 @@ void CPlayScene::Load(TiXmlElement* data)
 	camera->SetCameraSize(CGame::GetInstance()->GetScreenWidth(), CGame::GetInstance()->GetScreenHeight());
 	CGame::GetInstance()->setCam(camera);
 	//camera->SetBoundary(0,0,tilemap->)
-
+	player = new Player();
 
 }
 
@@ -284,7 +286,9 @@ void CPlayScene::Render()
 {
 	tilemap->Render();
 	for (int i = 0; i < objects.size(); i++)
-		objects[i]->Render();
+		objects[i]->Render(this->camera);
+
+	player->Render(this->camera);
 }
 
 /*

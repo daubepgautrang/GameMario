@@ -1,5 +1,6 @@
 #include "Animations.h"
 #include "Utils.h"
+#include "Game.h"
 
 CAnimationSetDatabase * CAnimationSetDatabase::__instance = NULL;
 
@@ -71,6 +72,43 @@ void CAnimations::Clear()
 	}
 
 	animations.clear();
+}
+
+void CAnimations::ImportAnimationFromXml(string AnimationPath)
+{
+	TiXmlDocument XMLdoc(AnimationPath.c_str());
+
+	if (XMLdoc.LoadFile())
+	{
+		TiXmlElement* root = XMLdoc.RootElement();
+
+		for (TiXmlElement* XMLtexture = root->FirstChildElement("Textures"); XMLtexture != NULL; XMLtexture = XMLtexture->NextSiblingElement("Textures"))
+		{
+			for (TiXmlElement* XMLanimation = XMLtexture->FirstChildElement("Animation"); XMLanimation != NULL; XMLanimation = XMLanimation->NextSiblingElement("Animation"))
+			{
+				LPANIMATION ani;
+				int aniframetime;
+
+				std::string aniID = XMLanimation->Attribute("aniId");
+				XMLanimation->QueryIntAttribute("frameTime", &aniframetime);
+				ani = new CAnimation(aniframetime);
+
+				for (TiXmlElement* XMLanimationsprites = XMLanimation->FirstChildElement(); XMLanimationsprites != NULL; XMLanimationsprites = XMLanimationsprites->NextSiblingElement())
+				{
+					int frametime;
+					std::string spriteId = XMLanimationsprites->Attribute("id");
+					XMLanimationsprites->QueryIntAttribute("frameTime", &frametime);
+					ani->Add(spriteId, frametime);
+				}
+				Add(aniID, ani);
+				OutputDebugStringW(ToLPCWSTR("[INFO] created animation: " + aniID + "\n"));
+			}
+		}
+	}
+	else
+	{
+		OutputDebugStringW(ToLPCWSTR("[ERROR] could not load file" + AnimationPath));
+	}
 }
 
 CAnimationSetDatabase::CAnimationSetDatabase()

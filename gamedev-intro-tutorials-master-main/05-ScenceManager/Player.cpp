@@ -16,6 +16,7 @@
 #include "PlayerFallingState.h"
 #include "PlayerAttackingState.h"
 #include "PlayerFlyingState.h"
+#include "Animations.h"
 
 Player* Player::instance = NULL;
 
@@ -169,7 +170,7 @@ void Player::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 	}
 }
 
-void Player::Render()
+void Player::Render(Camera* camera)
 {
 	//int ani = -1;
 	//if (state == MARIO_STATE_DIE)
@@ -201,13 +202,10 @@ void Player::Render()
 	//	}
 	//}
 
-	playerState->UpdateAnimation();
-	int alpha = 255;
-	if (untouchable)
-		alpha = 128;
+	CAnimations::GetInstance()->Get("ani-small-mario-skid")->Render(nx, x, y);
 
-	animation_set->at(playerState->animation)->Render(nx, x, y, alpha);
-	RenderBoundingBox();
+	//animation_set->at(playerState->animation)->Render(nx, x, y, alpha);
+	//RenderBoundingBox();
 }
 
 void Player::SetState(PlayerState* newState)

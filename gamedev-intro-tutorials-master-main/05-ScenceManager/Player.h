@@ -1,4 +1,5 @@
 #pragma once
+
 #include "GameObject.h"
 #include "PlayerState.h"
 #include "GameGlobal.h"
@@ -122,7 +123,7 @@ public:
 
 
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT> *colliable_objects = NULL);
-	virtual void Render();
+	virtual void Render(Camera* camera);
 	void SetState(PlayerState* newState);
 	void SetLevel(int l) { level = l; }
 	void StartUntouchable() { untouchable = 1; untouchable_start = GetTickCount(); }

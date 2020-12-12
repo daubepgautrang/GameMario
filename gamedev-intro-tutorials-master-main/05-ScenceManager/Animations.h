@@ -46,7 +46,7 @@ public:
 	void Add(string id, LPANIMATION ani);
 	LPANIMATION Get(string id);
 	void Clear();
-
+	void ImportAnimationFromXml(string AnimationPath);
 	static CAnimations * GetInstance();
 };
 
@@ -67,7 +67,6 @@ public:
 	CAnimationSetDatabase();
 	void Add(string id, LPANIMATION_SET ani);
 	LPANIMATION_SET Get(string id);
-
 
 	static CAnimationSetDatabase * GetInstance();
 };

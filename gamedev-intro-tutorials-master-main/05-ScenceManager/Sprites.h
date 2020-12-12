@@ -2,6 +2,7 @@
 #include <Windows.h>
 #include <d3dx9.h>
 #include <unordered_map>
+#include "Textures.h"
 
 using namespace std;
 
@@ -36,7 +37,7 @@ public:
 	void Add(string id, int left, int top, int right, int bottom, LPDIRECT3DTEXTURE9 tex);
 	LPSPRITE Get(string id);
 	void CSpriteDatabase::Clear();
-
+	void ImportSpriteFromXml(string textureId, string SpritePath);
 	static CSpriteDatabase * GetInstance();
 };
 

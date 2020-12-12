@@ -125,12 +125,15 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Animations.cpp" />
+    <ClCompile Include="BigMario.cpp" />
     <ClCompile Include="Brick.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="GameGlobal.cpp" />
     <ClCompile Include="Ground.cpp" />
     <ClCompile Include="Koopas.cpp" />
     <ClCompile Include="Layer.cpp" />
+    <ClCompile Include="Mario.cpp" />
+    <ClCompile Include="MarioModel.cpp" />
     <ClCompile Include="OneWayPlatform.cpp" />
     <ClCompile Include="PlayerAttackingState.cpp" />
     <ClCompile Include="PlayerFallingState.cpp" />
@@ -143,6 +146,7 @@
     <ClCompile Include="PlayerSkiddingState.cpp" />
     <ClCompile Include="PlayerWalkingState.cpp" />
     <ClCompile Include="Portal.cpp" />
+    <ClCompile Include="StatePlayer.cpp" />
     <ClCompile Include="Tilemap.cpp" />
     <ClCompile Include="TinyXML\tinystr.cpp" />
     <ClCompile Include="TinyXML\tinyxml.cpp" />
@@ -160,10 +164,13 @@
     <ClCompile Include="Textures.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="BigMario.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="GameGlobal.h" />
     <ClInclude Include="Ground.h" />
     <ClInclude Include="Layer.h" />
+    <ClInclude Include="Mario.h" />
+    <ClInclude Include="MarioModel.h" />
     <ClInclude Include="OneWayPlatform.h" />
     <ClInclude Include="PlayerAttackingState.h" />
     <ClInclude Include="PlayerFallingState.h" />
@@ -180,6 +187,7 @@
     <ClInclude Include="Koopas.h" />
     <ClInclude Include="PlayerWalkingState.h" />
     <ClInclude Include="Portal.h" />
+    <ClInclude Include="StatePlayer.h" />
     <ClInclude Include="Tilemap.h" />
     <ClInclude Include="TinyXML\tinystr.h" />
     <ClInclude Include="TinyXML\tinyxml.h" />

@@ -44,6 +44,12 @@
     <Filter Include="Game Component\Utils">
       <UniqueIdentifier>{ad889e97-b216-4ba7-babb-c13658fd6e6a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game Objects\Player\state">
+      <UniqueIdentifier>{bd331c9d-f72c-4cbd-a932-8d85012290c4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game Objects\Mario">
+      <UniqueIdentifier>{4895ebd2-5f56-4727-a0f5-2b1d4e745d7c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Animations.cpp">
@@ -73,41 +79,11 @@
     <ClCompile Include="Textures.cpp">
       <Filter>Game Graphics</Filter>
     </ClCompile>
-    <ClCompile Include="PlayerIdleState.cpp">
-      <Filter>Game Objects\Player</Filter>
-    </ClCompile>
-    <ClCompile Include="PlayerRunningState.cpp">
-      <Filter>Game Objects\Player</Filter>
-    </ClCompile>
-    <ClCompile Include="PlayerJumpingState.cpp">
-      <Filter>Game Objects\Player</Filter>
-    </ClCompile>
-    <ClCompile Include="PlayerWalkingState.cpp">
-      <Filter>Game Objects\Player</Filter>
-    </ClCompile>
-    <ClCompile Include="PlayerCrouchingState.cpp">
-      <Filter>Game Objects\Player</Filter>
-    </ClCompile>
     <ClCompile Include="Ground.cpp">
       <Filter>Game Objects\Object</Filter>
     </ClCompile>
-    <ClCompile Include="PlayerFallingState.cpp">
-      <Filter>Game Objects\Player</Filter>
-    </ClCompile>
-    <ClCompile Include="PlayerRunningMaxState.cpp">
-      <Filter>Game Objects\Player</Filter>
-    </ClCompile>
     <ClCompile Include="OneWayPlatform.cpp">
       <Filter>Game Objects\Object</Filter>
-    </ClCompile>
-    <ClCompile Include="PlayerFlyingState.cpp">
-      <Filter>Game Objects\Player</Filter>
-    </ClCompile>
-    <ClCompile Include="PlayerAttackingState.cpp">
-      <Filter>Game Objects\Player</Filter>
-    </ClCompile>
-    <ClCompile Include="PlayerSkiddingState.cpp">
-      <Filter>Game Objects\Player</Filter>
     </ClCompile>
     <ClCompile Include="TinyXML\tinystr.cpp">
       <Filter>TinyXML</Filter>
@@ -148,6 +124,48 @@
     <ClCompile Include="Utils.cpp">
       <Filter>Game Component\Utils</Filter>
     </ClCompile>
+    <ClCompile Include="PlayerAttackingState.cpp">
+      <Filter>Game Objects\Player\state</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerCrouchingState.cpp">
+      <Filter>Game Objects\Player\state</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerFallingState.cpp">
+      <Filter>Game Objects\Player\state</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerFlyingState.cpp">
+      <Filter>Game Objects\Player\state</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerIdleState.cpp">
+      <Filter>Game Objects\Player\state</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerJumpingState.cpp">
+      <Filter>Game Objects\Player\state</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerRunningMaxState.cpp">
+      <Filter>Game Objects\Player\state</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerRunningState.cpp">
+      <Filter>Game Objects\Player\state</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerSkiddingState.cpp">
+      <Filter>Game Objects\Player\state</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerWalkingState.cpp">
+      <Filter>Game Objects\Player\state</Filter>
+    </ClCompile>
+    <ClCompile Include="StatePlayer.cpp">
+      <Filter>Game Objects\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Mario.cpp">
+      <Filter>Game Objects\Mario</Filter>
+    </ClCompile>
+    <ClCompile Include="MarioModel.cpp">
+      <Filter>Game Objects\Mario</Filter>
+    </ClCompile>
+    <ClCompile Include="BigMario.cpp">
+      <Filter>Game Objects\Mario</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animations.h">
@@ -168,9 +186,6 @@
     <ClInclude Include="Player.h">
       <Filter>Game Objects\Player</Filter>
     </ClInclude>
-    <ClInclude Include="PlayerState.h">
-      <Filter>Game Objects\Player</Filter>
-    </ClInclude>
     <ClInclude Include="Portal.h">
       <Filter>Game Objects\Object</Filter>
     </ClInclude>
@@ -180,41 +195,11 @@
     <ClInclude Include="Textures.h">
       <Filter>Game Graphics</Filter>
     </ClInclude>
-    <ClInclude Include="PlayerIdleState.h">
-      <Filter>Game Objects\Player</Filter>
-    </ClInclude>
-    <ClInclude Include="PlayerRunningState.h">
-      <Filter>Game Objects\Player</Filter>
-    </ClInclude>
-    <ClInclude Include="PlayerJumpingState.h">
-      <Filter>Game Objects\Player</Filter>
-    </ClInclude>
-    <ClInclude Include="PlayerWalkingState.h">
-      <Filter>Game Objects\Player</Filter>
-    </ClInclude>
-    <ClInclude Include="PlayerCrouchingState.h">
-      <Filter>Game Objects\Player</Filter>
-    </ClInclude>
     <ClInclude Include="Ground.h">
       <Filter>Game Objects\Object</Filter>
     </ClInclude>
-    <ClInclude Include="PlayerFallingState.h">
-      <Filter>Game Objects\Player</Filter>
-    </ClInclude>
-    <ClInclude Include="PlayerRunningMaxState.h">
-      <Filter>Game Objects\Player</Filter>
-    </ClInclude>
     <ClInclude Include="OneWayPlatform.h">
       <Filter>Game Objects\Object</Filter>
-    </ClInclude>
-    <ClInclude Include="PlayerFlyingState.h">
-      <Filter>Game Objects\Player</Filter>
-    </ClInclude>
-    <ClInclude Include="PlayerAttackingState.h">
-      <Filter>Game Objects\Player</Filter>
-    </ClInclude>
-    <ClInclude Include="PlayerSkiddingState.h">
-      <Filter>Game Objects\Player</Filter>
     </ClInclude>
     <ClInclude Include="TinyXML\tinystr.h">
       <Filter>TinyXML</Filter>
@@ -248,6 +233,51 @@
     </ClInclude>
     <ClInclude Include="Utils.h">
       <Filter>Game Component\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerAttackingState.h">
+      <Filter>Game Objects\Player\state</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerCrouchingState.h">
+      <Filter>Game Objects\Player\state</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerFallingState.h">
+      <Filter>Game Objects\Player\state</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerFlyingState.h">
+      <Filter>Game Objects\Player\state</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerIdleState.h">
+      <Filter>Game Objects\Player\state</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerJumpingState.h">
+      <Filter>Game Objects\Player\state</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerRunningMaxState.h">
+      <Filter>Game Objects\Player\state</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerRunningState.h">
+      <Filter>Game Objects\Player\state</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerSkiddingState.h">
+      <Filter>Game Objects\Player\state</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerWalkingState.h">
+      <Filter>Game Objects\Player\state</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerState.h">
+      <Filter>Game Objects\Player\state</Filter>
+    </ClInclude>
+    <ClInclude Include="StatePlayer.h">
+      <Filter>Game Objects\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Mario.h">
+      <Filter>Game Objects\Mario</Filter>
+    </ClInclude>
+    <ClInclude Include="MarioModel.h">
+      <Filter>Game Objects\Mario</Filter>
+    </ClInclude>
+    <ClInclude Include="BigMario.h">
+      <Filter>Game Objects\Mario</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -57,7 +57,7 @@ void CTextureDatabase::Add(string id, LPCWSTR filePath, D3DCOLOR transparentColo
 
 	textures[id] = texture;
 
-	DebugOut(L"[INFO] Texture loaded Ok: id=%d, %s\n", id, filePath);
+	//DebugOut(L"[INFO] Texture loaded Ok: id=%d, %s\n", id, filePath);
 }
 
 LPDIRECT3DTEXTURE9 CTextureDatabase::Get(string id) 

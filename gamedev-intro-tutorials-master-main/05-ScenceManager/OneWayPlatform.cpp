@@ -5,7 +5,7 @@ OneWayPlatform::OneWayPlatform(int width, int height)
 	this->height = height;
 }
 
-void OneWayPlatform::Render()
+void OneWayPlatform::Render(Camera* camera)
 {
 	//animation_set->at(0)->Render(nx, x, y);
 	RenderBoundingBox();

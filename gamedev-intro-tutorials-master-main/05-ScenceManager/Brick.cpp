@@ -1,6 +1,6 @@
 #include "Brick.h"
 
-void CBrick::Render()
+void CBrick::Render(Camera* camera)
 {
 	//animation_set->at(0)->Render(nx, x, y);
 	RenderBoundingBox();

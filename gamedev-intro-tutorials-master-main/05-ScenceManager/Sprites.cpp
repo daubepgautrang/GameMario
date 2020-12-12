@@ -1,6 +1,7 @@
 #include "Sprites.h"
 #include "Game.h"
 #include "Utils.h"
+#include "Textures.h"
 
 CSprite::CSprite(string id, int left, int top, int right, int bottom, LPDIRECT3DTEXTURE9 tex)
 {
@@ -51,6 +52,38 @@ void CSpriteDatabase::Clear()
 	}
 
 	sprites.clear();
+}
+
+void CSpriteDatabase::ImportSpriteFromXml(string textureId, string spritePath)
+{
+	TiXmlDocument XMLdoc(spritePath.c_str());
+
+	if (XMLdoc.LoadFile())
+	{
+		TiXmlElement* root = XMLdoc.RootElement();
+		for (TiXmlElement* XMLtexture = root->FirstChildElement("Textures"); XMLtexture != NULL; XMLtexture = XMLtexture->NextSiblingElement("Textures"))
+		{
+			for (TiXmlElement* XMLsprite = XMLtexture->FirstChildElement("Sprite"); XMLsprite != NULL; XMLsprite = XMLsprite->NextSiblingElement("Sprite"))
+			{
+				int left, top, width, height;
+				int xPivot, yPivot = 0;
+				std::string id = XMLsprite->Attribute("id");
+				XMLsprite->QueryIntAttribute("left", &left);
+				XMLsprite->QueryIntAttribute("top", &top);
+				XMLsprite->QueryIntAttribute("width", &width);
+				XMLsprite->QueryIntAttribute("height", &height);
+				XMLsprite->QueryIntAttribute("xPivot", &xPivot);
+				XMLsprite->QueryIntAttribute("yPivot", &yPivot);
+
+				Add(id, left, top, left+width, top+height, CTextureDatabase::GetInstance()->Get(textureId));
+				OutputDebugStringW(ToLPCWSTR("[INFO] loaded sprite: " + id + "/n"));
+			}
+		}
+	}
+	else
+	{
+		OutputDebugStringW(ToLPCWSTR("[ERROR] could not load file: "+ spritePath + "\n"));
+	}
 }
 
 
